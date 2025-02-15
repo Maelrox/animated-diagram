@@ -1,0 +1,31 @@
+{
+    "name": "animated-flow",
+    "displayName": "Animated Flow",
+    "description": "Drag and drop shapes with animated connections",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.80.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [],
+    "main": "./out/extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "shapeflow.openDiagram",
+                "title": "Open Animated Flow"
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./"
+    },
+    "devDependencies": {
+        "@types/node": "^16.18.126",
+        "@types/vscode": "^1.97.0",
+        "typescript": "^5.7.3"
+    }
+}
