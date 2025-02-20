@@ -2,32 +2,7 @@
 <html>
 
 <head>
-    <style>
-        .shape {
-            cursor: move;
-            user-select: none;
-        }
-
-        .connection {
-            pointer-events: none;
-        }
-
-        .connection-path {
-            stroke: #666;
-            stroke-width: 2;
-            fill: none;
-        }
-
-        .flow-particle {
-            fill: #4CAF50;
-        }
-
-        .order-text {
-            font-size: 16px;
-            fill: red;
-            pointer-events: none;
-        }
-    </style>
+    <link href="styles.css" rel="stylesheet"/>
 </head>
 
 <body>
@@ -40,8 +15,8 @@
         <label for="text-color-picker">Text Color:</label>
         <input type="color" id="text-color-picker" value="#000000">
         <button onclick="stopAnimations()">Stop</button>
+        <button id="edit-order-btn" onclick="toggleOrderEditMode()">Edit Order</button>
         <button onclick="toggleConnectionMode()">Toggle Connection Mode</button>
-
     </div>
 
     <svg id="canvas" width="800" height="600" style="border: 1px solid #ccc;">
@@ -52,6 +27,9 @@
         </defs>
     </svg>
     <script src="main.js"></script>
+    <script src="animator.js"></script>
+    <script src="connector.js"></script>
+    <script src="shapeManager.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,81 @@
+.shape-text {
+    pointer-events: none;
+    user-select: none;
+}
+.shape-text.editing {
+    pointer-events: all;
+}
+.resize-handle {
+    cursor: se-resize;
+}
+.flow-particle {
+    fill:rgb(235, 205, 71);
+}
+.order-text {
+    cursor: default;
+}
+.order-text:hover {
+    fill: #4CAF50;
+    cursor: pointer;
+}
+.shape {
+    cursor: move;
+    user-select: none;
+}
+.connection {
+    pointer-events: none;
+}
+.connection-path {
+    stroke: #666;
+    stroke-width: 2;
+    fill: none;
+}
+.flow-particle {
+    fill: #4CAF50;
+}
+.order-text {
+    font-size: 16px;
+    fill: red;
+    pointer-events: none;
+}
+.direction-btn {
+    cursor: pointer;
+    opacity: 0.8;
+}
+.direction-btn:hover {
+    opacity: 1;
+}
+.order-text {
+    cursor: pointer;
+}
+.connection-path:hover {
+    stroke: #4CAF50;
+    stroke-width: 3;
+}
+
+
+.connection {
+    pointer-events: all;
+}
+.connection-path {
+    pointer-events: all;
+    cursor: pointer;
+}
+.connection-path:hover {
+    stroke: #4CAF50;
+    stroke-width: 3;
+}
+.direction-btn {
+    cursor: pointer;
+    opacity: 1;
+}
+.direction-btn:hover {
+    opacity: 1;
+}
+.order-text {
+    cursor: pointer;
+    pointer-events: all;
+}
+.flow-particle {
+    pointer-events: none;
+}
