@@ -43,7 +43,6 @@ function handleShapeClick(evt) {
     selectedShape = evt.target;
 }
 
-
 function editText(text) {
     const currentText = text.textContent;
     const input = document.createElement('input');
@@ -132,7 +131,6 @@ function getShapeCenter(shape) {
     return { x: bbox.x + bbox.width / 2, y: bbox.y + bbox.height / 2 };
 }
 
-
 function addShape(type) {
     const group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
     const shape = document.createElementNS('http://www.w3.org/2000/svg', type === 'rect' ? 'rect' : 'circle');
@@ -175,7 +173,7 @@ function addShape(type) {
     group.addEventListener('click', handleShapeClick);
 
     svg.appendChild(group);
-    svg.addEventListener("dblclick", function(event) {
+    shape.addEventListener("dblclick", function(event) {
         if (event.target.tagName === type) {
             editText(text);
         }
