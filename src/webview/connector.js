@@ -147,3 +147,37 @@ function updateConnections() {
         orderText.setAttribute('y', midY - 8);
     });
 }
+
+function getShapeCenter(element) {
+    if (element.tagName === 'image') {
+        // For images, we need to consider the group transformation
+        const group = element.parentNode;
+        const image = group.querySelector('image');
+        
+        // Get base position and dimensions
+        const x = parseFloat(image.getAttribute('x'));
+        const y = parseFloat(image.getAttribute('y'));
+        const width = parseFloat(image.getAttribute('width'));
+        const height = parseFloat(image.getAttribute('height'));
+        
+        // Calculate center point
+        let centerX = x + width / 2;
+        let centerY = y + height / 2;
+        
+        // Apply group transformation if it exists
+        const transform = group.getAttribute('transform');
+        if (transform) {
+            const match = transform.match(/translate\(([-\d.]+),\s*([-\d.]+)\)/);
+            if (match) {
+                centerX += parseFloat(match[1]);
+                centerY += parseFloat(match[2]);
+            }
+        }
+        
+        return { x: centerX, y: centerY };
+    } else {
+        // For regular shapes, use existing logic
+        const bbox = element.getBBox();
+        return { x: bbox.x + bbox.width / 2, y: bbox.y + bbox.height / 2 };
+    }
+}

@@ -105,7 +105,24 @@ function endResizeImage() {
     selectedImage = null;
 }
 
-function handleImageClick(event) {
-    event.stopPropagation();
-    console.log('Image clicked:', event.currentTarget);
+function handleImageClick(evt) {
+    if (!isConnectionMode) return;
+    
+    // Make sure we're working with the image element
+    const image = evt.currentTarget.querySelector('image');
+    
+    if (!connectionStart) {
+        connectionStart = image;
+        // Add visual feedback for selected image
+        image.style.outline = '2px solid #4CAF50';
+    } else {
+        const connectionEnd = image;
+        if (connectionStart !== connectionEnd) {
+            createConnection(connectionStart, connectionEnd);
+        }
+        // Remove visual feedback
+        connectionStart.style.outline = 'none';
+        connectionStart = null;
+    }
+    selectedShape = image;
 }

@@ -164,11 +164,6 @@ function endDrag() {
     document.removeEventListener('mouseup', endDrag);
 }
 
-function getShapeCenter(shape) {
-    const bbox = shape.getBBox();
-    return { x: bbox.x + bbox.width / 2, y: bbox.y + bbox.height / 2 };
-}
-
 function createResizeHandle(group) {
     const handle = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
     handle.setAttribute('width', '7');
