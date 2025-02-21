@@ -23,9 +23,9 @@ function addImage() {
     
     rect.setAttribute('x', '190');
     rect.setAttribute('y', '190');
-    rect.setAttribute('width', '10');
-    rect.setAttribute('height', '10');
-    rect.setAttribute('fill', 'red');
+    rect.setAttribute('width', '7');
+    rect.setAttribute('height', '7');
+    rect.setAttribute('fill', 'white');
     rect.classList.add('grab');
     rect.addEventListener('mousedown', startResizeImage);
     
@@ -88,8 +88,8 @@ function endDragImage() {
 function startResizeImage(event) {
     event.stopPropagation();
     selectedImage = event.target.parentNode.querySelector('image');
-    svg.addEventListener('mousemove', resize);
-    svg.addEventListener('mouseup', endResize);
+    svg.addEventListener('mousemove', resizeImage);
+    svg.addEventListener('mouseup', endResizeImage);
 }
 
 function resizeImage(event) {
