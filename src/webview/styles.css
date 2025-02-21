@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap');
+
+body {
+    background-color: black;
+    font-family: Cabin;
+}
 .shape-text {
     pointer-events: none;
     user-select: none;
@@ -30,12 +36,9 @@
     stroke-width: 2;
     fill: none;
 }
-.flow-particle {
-    fill: #4CAF50;
-}
 .order-text {
     font-size: 16px;
-    fill: red;
+    fill: #e2e2e2;
     pointer-events: none;
 }
 .direction-btn {
@@ -48,12 +51,6 @@
 .order-text {
     cursor: pointer;
 }
-.connection-path:hover {
-    stroke: #4CAF50;
-    stroke-width: 3;
-}
-
-
 .connection {
     pointer-events: all;
 }
@@ -78,4 +75,49 @@
 }
 .flow-particle {
     pointer-events: none;
+}
+.btn {
+    background: black;
+    font-family: Cabin;
+    color: white;
+    border: 1px solid white;
+    padding: 10px;
+    cursor:pointer;
+}
+.btn:hover {
+    background: white;
+    color:black;
+}
+.lbl {
+    color:white;
+}
+#toolbar {
+    border-bottom: 1px solid white;
+    padding: 10px;
+    padding-top: 1px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 8px;
+}
+#sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-right: 1px white solid;
+    width: 3.5em;
+    height: 80vh;
+}
+#wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+.svg-input-order {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #fff;
+    border-radius: 3px;
 }

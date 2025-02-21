@@ -2,31 +2,33 @@
 <html>
 
 <head>
-    <link href="styles.css" rel="stylesheet"/>
+    <link href="styles.css" rel="stylesheet" />
 </head>
 
 <body>
-    <div id="toolbar" style="margin-bottom: 10px;">
-        <button onclick="addShape('rect')">Add Rectangle</button>
-        <button onclick="addShape('circle')">Add Circle</button>
-        <button onclick="addImage()">Add Image</button>
-        <label for="bg-color-picker">Background Color:</label>
-        <input type="color" id="bg-color-picker" value="#ffffff">
 
-        <label for="text-color-picker">Text Color:</label>
-        <input type="color" id="text-color-picker" value="#000000">
-        <button onclick="stopAnimations()">Stop</button>
-        <button id="edit-order-btn" onclick="toggleOrderEditMode()">Edit Order</button>
-        <button onclick="toggleConnectionMode()">Toggle Connection Mode</button>
+    <div id="toolbar" style="margin-bottom: 10px;">
+        <button class="btn" onclick="addShape('rect')">Add Rectangle</button>
+        <button class="btn" onclick="addShape('circle')">Add Circle</button>
+        <button class="btn" onclick="addImage()">Add Image</button>
+        <button class="btn" onclick="stopAnimations()">Stop</button>
+        <button class="btn" id="edit-order-btn" onclick="toggleOrderEditMode()">Edit Order</button>
+        <button class="btn" onclick="toggleConnectionMode()">Toggle Connection Mode</button>
+    </div>
+    <div id="wrapper">
+        <div id="sidebar">
+            <input type="color" id="bg-color-picker" value="#ffffff">
+            <input type="color" id="text-color-picker" value="#000000">
+        </div>
+        <svg id="canvas" width="100%" height="80vh" style="border: 1px solid #000;">
+            <defs>
+                <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                    <path d="M 0 0 L 10 5 L 0 10 z" fill="#666" />
+                </marker>
+            </defs>
+        </svg>
     </div>
 
-    <svg id="canvas" width="800" height="600" style="border: 1px solid #ccc;">
-        <defs>
-            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-                <path d="M 0 0 L 10 5 L 0 10 z" fill="#666" />
-            </marker>
-        </defs>
-    </svg>
     <script src="main.js"></script>
     <script src="animator.js"></script>
     <script src="connector.js"></script>

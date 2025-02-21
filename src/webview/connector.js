@@ -3,13 +3,13 @@ function toggleConnectionMode() {
     isConnectionMode = !isConnectionMode;
     connectionStart = null;
     document.querySelector('button:last-child').style.backgroundColor = 
-        isConnectionMode ? '#4CAF50' : '';
+        isConnectionMode ? '#911a1a' : '';
 }
 
 function toggleOrderEditMode() {
     isOrderEditMode = !isOrderEditMode;
     document.getElementById('edit-order-btn').style.backgroundColor = 
-        isOrderEditMode ? '#4CAF50' : '';
+        isOrderEditMode ? '#911a1a' : '';
     
     // Enable/disable pointer events on order numbers
     const orderTexts = document.querySelectorAll('.order-text');
@@ -35,7 +35,7 @@ function createConnection(start, end) {
     orderText.textContent = currentOrder++;
     orderText.classList.add('order-text');
     
-    // Create input element for order editing
+    // input element for order editing
     const foreignObject = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject');
     foreignObject.setAttribute('width', '40');
     foreignObject.setAttribute('height', '20');
@@ -43,25 +43,19 @@ function createConnection(start, end) {
     
     const input = document.createElement('input');
     input.type = 'number';
-    input.style.width = '100%';
-    input.style.height = '100%';
-    input.style.padding = '0';
-    input.style.margin = '0';
-    input.style.border = '1px solid #666';
-    input.style.borderRadius = '3px';
+    input.classList.add('svg-input-order');
     foreignObject.appendChild(input);
 
     // Create direction controls
     const directionControls = document.createElementNS('http://www.w3.org/2000/svg', 'g');
     directionControls.classList.add('direction-controls');
-    //directionControls.style.display = 'none';
+    directionControls.style.display = 'none';
     
-    // Forward button
     const directionBtn = document.createElementNS('http://www.w3.org/2000/svg', 'g');
     directionBtn.classList.add('direction-btn', 'forward-btn');
     directionBtn.innerHTML = `
-        <circle cx="0" cy="0" r="8" fill="white" stroke="#666"/>
-        <path d="M-4 0 L4 0 M1 -1 L4 0 L1 3" stroke="#666" fill="none"/>
+        <circle cx="0" cy="0" r="8" fill="white" stroke="#fff"/>
+        <path d="M-4 0 L4 0 M1 -1 L4 0 L1 3" stroke="#fff" fill="none"/>
     `;
     directionControls.appendChild(directionBtn);
 
@@ -74,13 +68,12 @@ function createConnection(start, end) {
         
         // Position the controls
         directionBtn.setAttribute('transform', `translate(${midX + 20}, ${midY})`);
-        
+        directionControls.style.display = 'block';
     });
 
     // Handle direction button clicks
     directionBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        pathDirections.set(connection, 1);
         updateAnimationDirection(connection);
     });
 
@@ -124,7 +117,6 @@ function createConnection(start, end) {
     connection.appendChild(directionControls);
     
     svg.insertBefore(connection, svg.firstChild);
-    pathDirections.set(connection, 1);
 
     const connObj = {
         element: connection,
@@ -154,44 +146,4 @@ function updateConnections() {
         orderText.setAttribute('x', midX);
         orderText.setAttribute('y', midY - 8);
     });
-}
-
-function createDirectionControls(connection) {
-    const controls = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-    controls.classList.add('direction-controls');
-    //controls.style.display = 'none';
-
-    // Forward button
-    const forwardBtn = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-    forwardBtn.innerHTML = `
-        <circle cx="0" cy="0" r="8" fill="white" stroke="#666"/>
-        <path d="M-4 0 L4 0 M1 -3 L4 0 L1 3" stroke="#666" fill="none"/>
-    `;
-    forwardBtn.classList.add('direction-btn', 'forward-btn');
-
-    // Reverse button
-    const reverseBtn = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-    reverseBtn.innerHTML = `
-        <circle cx="0" cy="0" r="8" fill="white" stroke="#666"/>
-        <path d="M4 0 L-4 0 M-1 -3 L-4 0 L-1 3" stroke="#666" fill="none"/>
-    `;
-    reverseBtn.classList.add('direction-btn', 'reverse-btn');
-
-    controls.appendChild(forwardBtn);
-    controls.appendChild(reverseBtn);
-
-    // Add click handlers
-    forwardBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        pathDirections.set(connection, 1);
-        updateAnimationDirection(connection);
-    });
-
-    reverseBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        pathDirections.set(connection, -1);
-        updateAnimationDirection(connection);
-    });
-
-    return controls;
 }

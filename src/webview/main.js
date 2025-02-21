@@ -9,4 +9,3 @@ let resizeHandle = null;
 let currentOrder = 1;
 let isOrderEditMode = false;
 let selectedOrder = null;
-let pathDirections = new Map();

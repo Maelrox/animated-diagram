@@ -14,16 +14,54 @@ textColorPicker.addEventListener('input', () => {
     }
 });
 
-function changeShapeColor(group, backgroundColor, textColor) {
-    const shape = group.querySelector('.shape');
-    const text = group.querySelector('.shape-text');
-    
-    if (shape) {
-        shape.setAttribute('fill', backgroundColor);
+function addShape(type) {
+    const group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    const shape = document.createElementNS('http://www.w3.org/2000/svg', type === 'rect' ? 'rect' : 'circle');
+    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+
+    group.classList.add('shape-group');
+    shape.classList.add('shape');
+
+    if (type === 'rect') {
+        shape.setAttribute('width', '100');
+        shape.setAttribute('height', '60');
+        shape.setAttribute('x', '100');
+        shape.setAttribute('y', '100');
+        text.setAttribute('x', '150');
+        text.setAttribute('y', '130');
+    } else {
+        shape.setAttribute('r', '30');
+        shape.setAttribute('cx', '100');
+        shape.setAttribute('cy', '100');
+        text.setAttribute('x', '100');
+        text.setAttribute('y', '100');
     }
-    if (text) {
-        text.setAttribute('fill', textColor);
-    }
+
+    shape.setAttribute('fill', '#000');
+    shape.setAttribute('stroke', '#fff');
+    shape.setAttribute('stroke-width', '2');
+
+    text.textContent = 'Text';
+    text.setAttribute('text-anchor', 'middle');
+    text.setAttribute('fill', '#fff');
+    text.classList.add('shape-text');
+
+    group.appendChild(shape);
+    group.appendChild(text);
+
+    const resizeHandle = createResizeHandle(group);
+    group.appendChild(resizeHandle);
+
+    group.addEventListener('mousedown', startDrag);
+    group.addEventListener('click', handleShapeClick);
+
+    svg.appendChild(group);
+    shape.addEventListener("dblclick", function(event) {
+        if (event.target.tagName === type) {
+            editText(text);
+        }
+    });
+    return group;
 }
 
 function handleShapeClick(evt) {
@@ -37,7 +75,7 @@ function handleShapeClick(evt) {
         if (connectionStart !== connectionEnd) {
             createConnection(connectionStart, connectionEnd);
         }
-        connectionStart.setAttribute('stroke', '#000');
+        connectionStart.setAttribute('stroke', '#fff');
         connectionStart = null;
     }
     selectedShape = evt.target;
@@ -131,60 +169,11 @@ function getShapeCenter(shape) {
     return { x: bbox.x + bbox.width / 2, y: bbox.y + bbox.height / 2 };
 }
 
-function addShape(type) {
-    const group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-    const shape = document.createElementNS('http://www.w3.org/2000/svg', type === 'rect' ? 'rect' : 'circle');
-    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-
-    group.classList.add('shape-group');
-    shape.classList.add('shape');
-
-    if (type === 'rect') {
-        shape.setAttribute('width', '100');
-        shape.setAttribute('height', '60');
-        shape.setAttribute('x', '100');
-        shape.setAttribute('y', '100');
-        text.setAttribute('x', '150');
-        text.setAttribute('y', '130');
-    } else {
-        shape.setAttribute('r', '30');
-        shape.setAttribute('cx', '100');
-        shape.setAttribute('cy', '100');
-        text.setAttribute('x', '100');
-        text.setAttribute('y', '100');
-    }
-
-    shape.setAttribute('fill', '#fff');
-    shape.setAttribute('stroke', '#000');
-    shape.setAttribute('stroke-width', '2');
-
-    text.textContent = 'Double click to edit';
-    text.setAttribute('text-anchor', 'middle');
-    text.setAttribute('fill', '#000');
-    text.classList.add('shape-text');
-
-    group.appendChild(shape);
-    group.appendChild(text);
-
-    const resizeHandle = createResizeHandle(group);
-    group.appendChild(resizeHandle);
-
-    group.addEventListener('mousedown', startDrag);
-    group.addEventListener('click', handleShapeClick);
-
-    svg.appendChild(group);
-    shape.addEventListener("dblclick", function(event) {
-        if (event.target.tagName === type) {
-            editText(text);
-        }
-    });
-    return group;
-}
-
 function createResizeHandle(group) {
-    const handle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-    handle.setAttribute('r', '5');
-    handle.setAttribute('fill', '#4CAF50');
+    const handle = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    handle.setAttribute('width', '7');
+    handle.setAttribute('height', '7');
+    handle.setAttribute('fill', '#FFF');
     handle.classList.add('resize-handle');
     handle.style.cursor = 'se-resize';
 
@@ -201,8 +190,8 @@ function updateResizeHandlePosition(handle) {
     const width = parseFloat(rect.getAttribute('width'));
     const height = parseFloat(rect.getAttribute('height'));
     
-    handle.setAttribute('cx', x + width);
-    handle.setAttribute('cy', y + height);
+    handle.setAttribute('x', x + width -4);
+    handle.setAttribute('y', y + height -4);
 }
 
 function startResize(evt) {
@@ -239,4 +228,16 @@ function endResize() {
     isResizing = false;
     document.removeEventListener('mousemove', resize);
     document.removeEventListener('mouseup', endResize);
+}
+
+function changeShapeColor(group, backgroundColor, textColor) {
+    const shape = group.querySelector('.shape');
+    const text = group.querySelector('.shape-text');
+    
+    if (shape) {
+        shape.setAttribute('fill', backgroundColor);
+    }
+    if (text) {
+        text.setAttribute('fill', textColor);
+    }
 }

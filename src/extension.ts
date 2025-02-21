@@ -55,12 +55,19 @@ class ShapeFlowPanel {
         // Convert local script references to `asWebviewUri`
         const scriptMainUri = webviewUri.asWebviewUri(vscode.Uri.joinPath(extensionUri, 'src', 'webview', 'main.js'));
         html = html.replace('<script src="main.js"></script>', `<script src="${scriptMainUri}"></script>`);
+
         const scriptAnimatorUri = webviewUri.asWebviewUri(vscode.Uri.joinPath(extensionUri, 'src', 'webview', 'animator.js'));
         html = html.replace('<script src="animator.js"></script>', `<script src="${scriptAnimatorUri}"></script>`);
+
         const scriptshapeManagerUri = webviewUri.asWebviewUri(vscode.Uri.joinPath(extensionUri, 'src', 'webview', 'shapeManager.js'));
         html = html.replace('<script src="shapeManager.js"></script>', `<script src="${scriptshapeManagerUri}"></script>`);
+
+        const scriptImageUri = webviewUri.asWebviewUri(vscode.Uri.joinPath(extensionUri, 'src', 'webview', 'imageManager.js'));
+        html = html.replace('<script src="imageManager.js"></script>', `<script src="${scriptImageUri}"></script>`);
+
         const scriptConnectorUri = webviewUri.asWebviewUri(vscode.Uri.joinPath(extensionUri, 'src', 'webview', 'connector.js'));
         html = html.replace('<script src="connector.js"></script>', `<script src="${scriptConnectorUri}"></script>`);
+
         const stylesUri = webviewUri.asWebviewUri(vscode.Uri.joinPath(extensionUri, 'src', 'webview', 'styles.css'));
         html = html.replace('<link href="styles.css" rel="stylesheet"/>', `<link href="${stylesUri}" rel="stylesheet"/>`);
         return html;

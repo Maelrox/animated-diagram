@@ -1,15 +1,14 @@
-
 function addFlowAnimation(connection) {
     const particle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
     particle.classList.add('flow-particle');
     particle.setAttribute('r', '4');
-
+    
     const animateMotion = document.createElementNS('http://www.w3.org/2000/svg', 'animateMotion');
     animateMotion.setAttribute('dur', '2s');
-
+    
     const path = connection.querySelector('path');
     animateMotion.setAttribute('path', path.getAttribute('d'));
-
+    
     particle.appendChild(animateMotion);
     connection.appendChild(particle);
 }
@@ -34,19 +33,17 @@ function loopAnimations() {
         }
         connectionsByOrder.get(order).push(conn);
     });
-
+    
     const uniqueOrders = [...connectionsByOrder.keys()].sort((a, b) => a - b);
     let orderIndex = 0;
-
+    
     function animateOrder() {
         if (orderIndex >= uniqueOrders.length) {
-            setTimeout(() => {
-                orderIndex = 0;
-                loopAnimations();
-            }, 1000);
+            orderIndex = 0;
+            requestAnimationFrame(loopAnimations);
             return;
         }
-
+        
         const currentOrder = uniqueOrders[orderIndex];
         const currentConnections = connectionsByOrder.get(currentOrder);
         
@@ -58,11 +55,12 @@ function loopAnimations() {
                 animateMotion.beginElement();
             }
         });
-
+        
         orderIndex++;
-        setTimeout(animateOrder, 1000);
+        // 2 seconds per group, not per individual animation
+        setTimeout(animateOrder, 2000);
     }
-
+    
     animateOrder();
 }
 
@@ -71,7 +69,7 @@ function updateAnimationDirection(connection) {
     const animateMotion = particle.querySelector('animateMotion');
     const keyPoints = animateMotion.getAttribute('keyPoints');
     const keyTimes = animateMotion.getAttribute('keyTimes');
-
+    
     if (keyPoints && keyTimes) {
         animateMotion.removeAttribute('keyPoints');
         animateMotion.removeAttribute('keyTimes');
